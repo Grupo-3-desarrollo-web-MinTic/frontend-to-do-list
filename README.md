@@ -1,3 +1,5 @@
 # to-do-list
 
-Agregar contenido aquí
+## TECNOLOGÍAS USADAS
+
+En este apartado se hará uso de Bootstrap y como editor de texto se usará VSCode.
