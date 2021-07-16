@@ -1,0 +1,56 @@
+:root {
+  --blue: #1c525a;
+  --salmon: #fe6a6b;
+}
+
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  background: url();
+}
+
+ul,
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  grid-template-areas:
+    "nav nav nav btn btn btn btn btn"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh"
+    "nav nav nav dsh dsh dsh dsh dsh";
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, auto);
+  margin: 3% auto;
+  max-width: 80%;
+  display: grid;
+  width: 80%;
+}
+
+.container .nav {
+  padding: 3%;
+  grid-area: nav;
+  background-color: var(--blue);
+}
+
+.nav ul {
+  background-color: #fff;
+}
+
+.container .dsh {
+  grid-area: dsh;
+  background-color: blueviolet;
+}
