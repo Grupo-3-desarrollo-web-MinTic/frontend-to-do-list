@@ -1,0 +1,9 @@
+#SideBar{
+    transition: all 0.1s ease;
+    left: -250px;
+    top: 0px;
+    position: fixed;
+}
+li{
+    list-style: none;
+}
