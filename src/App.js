@@ -1,54 +1,16 @@
-import logo from "./assets/logo.svg";
-import "./style/dashboard.css";
-import "./style/App.css";
+import "./assent/style/basic.css";
+//import RouterApp from "./router/routerApp";
+import Main from "./view/Todo"
 
-import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <section className="container">
-        <div className="nav">
-          <div>
-            <img src={logo} className="App-logo" alt="logo" />
-            <ul>
-              <li>
-                <button>Opcion 1</button>
-              </li>
-              <li>
-                <button>Opcion 1</button>
-              </li>
-              <li>
-                <button>Opcion 1</button>
-              </li>
-              <li>
-                <button>Opcion 1</button>
-              </li>
-              <li>
-                <button>Opcion 1</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="dsh">
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
+    <Router>
+      <section>
+        <Main />
       </section>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    </Router>
   );
 }
 
