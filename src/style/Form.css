@@ -1,0 +1,35 @@
+.login-form{
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    height: 100%;
+    background-blend-mode: lighten;
+   
+    }
+
+.btn{
+
+  background-color: #FE6A6B;
+  color: white;
+  padding: 7px 14px;
+  border-radius: 5px;
+  border-bottom: 4px  #FE6A6B;
+}    
+
+.text{
+
+    text-align: center;
+    margin-top: 10px;
+}
+
+.bg{
+    background-image: url(../assets/5437842.jpg);
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    width:100%;
+    padding:70px 0px 70px 0px;
+    margin: 0;
+
+}
