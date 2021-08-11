@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    Api.get("/test/list")
+    Api.get("test/list")
       .then((res) => {
         this.setState({
           name: res.data.user,
@@ -26,8 +26,16 @@ export default class Dashboard extends Component {
       });
   }
 
-  handleClick() {
-    console.log(this.state.list);
+  handleClick(task) {
+    Api.post("test/list", {
+      task: task,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("Algo salio mal, el error es: " + err);
+      });
   }
 
   render() {
@@ -36,7 +44,7 @@ export default class Dashboard extends Component {
 
     for (let task of this.state.list) {
       tasks.push(
-        <li className="item" key={task}>
+        <li onClick={() => this.handleClick(task)} className="item" key={task}>
           <i className="fas fa-tasks"></i> {task}
         </li>
       );
@@ -44,7 +52,7 @@ export default class Dashboard extends Component {
 
     return (
       <article className="dashboard">
-        <h2 onClick={() => this.handleClick()}>@{username} list</h2>
+        <h2>@{username} list</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>

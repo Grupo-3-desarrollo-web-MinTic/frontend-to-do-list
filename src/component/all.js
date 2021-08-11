@@ -2,20 +2,22 @@ import React, { Component } from "react";
 import "../assent/style/item.css";
 import Api from "../api/index";
 
-export default class History extends Component {
+export default class All extends Component {
   constructor(props) {
     super(props);
 
     // Setting up state
     this.state = {
       list: [],
+      name: "",
     };
   }
 
   componentDidMount() {
-    Api.get("/test/historic")
+    Api.get("test/list")
       .then((res) => {
         this.setState({
+          name: res.data.user,
           list: res.data.list,
         });
       })
@@ -24,12 +26,25 @@ export default class History extends Component {
       });
   }
 
+  handleClick(task) {
+    Api.post("test/list", {
+      task: task,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("Algo salio mal, el error es: " + err);
+      });
+  }
+
   render() {
     const tasks = [];
+    const username = this.state.name;
 
     for (let task of this.state.list) {
       tasks.push(
-        <li className="item" key={task}>
+        <li onClick={() => this.handleClick(task)} className="item" key={task}>
           <i className="fas fa-tasks"></i> {task}
         </li>
       );
@@ -37,7 +52,7 @@ export default class History extends Component {
 
     return (
       <article className="dashboard">
-        <h2>History</h2>
+        <h2>@{username} all list</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>

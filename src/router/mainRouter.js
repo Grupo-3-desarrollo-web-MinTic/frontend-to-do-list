@@ -8,11 +8,11 @@ import Schedule from "../component/schedule";
 import Setting from "../component/setting";
 import LogOut from "../component/log-out";
 
-import Today from "../component/log-out";
-import Scheduled from "../component/log-out";
-import All from "../component/log-out";
+import Today from "../component/today";
+import Scheduled from "../component/scheduled";
+import All from "../component/all";
 
-import AddTask from "../component/log-out";
+import AddTask from "../component/newTask";
 //const Dashboard = React.lazy(() => import("../component/history"))
 
 export default class RouterSwitcher extends Component {
