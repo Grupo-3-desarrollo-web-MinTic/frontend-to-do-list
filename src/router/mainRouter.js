@@ -13,13 +13,18 @@ import Scheduled from "../component/scheduled";
 import All from "../component/all";
 
 import AddTask from "../component/newTask";
+
+import Login from "../view/Login"
+import SignUp from "../view/SignUp"
+
 //const Dashboard = React.lazy(() => import("../component/history"))
 
 export default class RouterSwitcher extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={Dashboard} />
+        <Route exact path="/" component={Login} />
+        <Route path="/sign-up" component={SignUp} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/history" component={History} />
         <Route path="/progress" component={Progress} />

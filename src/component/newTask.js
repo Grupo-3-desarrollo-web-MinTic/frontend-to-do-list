@@ -28,20 +28,25 @@ export default class NewTask extends Component {
 
   render() {
     return (
-      <article className="createTask">
+      <article className="dashboard">
         <h2>Create a new task</h2>
         <hr />
         <form>
           <div>
-            <label>Title:</label>
-            <input type="text" name="name" />
+            <label>Task title:</label>
+            <input type="text" name="name" className="setting--input__text" />
           </div>
           <div>
             <label>Description:</label>
-            <input type="text" name="name" />
+            <input type="text" name="name" className="setting--input__text" />
           </div>
+          <br />
           <div>
-            <input type="submit" value="Submit" />
+            <input
+              type="submit"
+              value="Add task"
+              className="setting--input__btn"
+            />
           </div>
         </form>
       </article>

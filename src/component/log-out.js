@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../assent/style/logOut.css";
 //import Api from "../api/index";
 
 export default class LogOut extends Component {
@@ -10,17 +11,22 @@ export default class LogOut extends Component {
 
   closeSession() {
     console.log("Sesión cerrada");
+
+    this.props.history.push("/");
   }
 
   render() {
     return (
-      <article>
+      <article className="dashboard">
         <h2>Log out</h2>
         <hr />
-        <div className="closeSession" onClick={() => this.closeSession()}>
-          <h3 className="closeSession--label">
+        <div className="closeSession">
+          <button
+            className="closeSession--label"
+            onClick={() => this.closeSession()}
+          >
             Do you want to close your session? (Click here)
-          </h3>
+          </button>
         </div>
       </article>
     );
