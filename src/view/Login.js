@@ -29,9 +29,9 @@ export default class Login extends Component {
   }
 
   sendData() {
-
+    this.props.history.push("/dashboard");
     api
-      .post("test/login", { 
+      .post("test/login", {
         user: this.state.email,
         password: this.state.password,
       })

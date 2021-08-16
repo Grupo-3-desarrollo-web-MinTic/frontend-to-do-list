@@ -3,6 +3,7 @@ import "../assent/style/login.css";
 
 import React, { Component } from "react";
 import api from "../api/index";
+import swl from "sweetalert";
 
 //import { BrowserRouter as Router } from "react-router-dom";
 
@@ -28,12 +29,23 @@ export default class Login extends Component {
     this.setState({ password: e.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-
-    api.get("/send");
-
-    console.log();
+  sendData() {
+    api
+      .post("test/login", {
+        user: this.state.email,
+        password: this.state.password,
+      })
+      .then((res) => {
+        localStorage.setItem("userToken", res);
+      })
+      .then(() => {
+        swl("Exitoso", "¿Como te va? Es bueno verte de nuevo", "success");
+        this.props.history.push("/dashboard");
+      })
+      .catch((err) => {
+        swl("Error", err, "error");
+        console.log("Ha ocurrido un error: " + err);
+      });
 
     this.setState({
       password: "",
@@ -45,12 +57,7 @@ export default class Login extends Component {
     return (
       <section className="login">
         <article className="login--form">
-          <form
-            onSubmit={() => {
-              console.log("nada");
-            }}
-            className="login--form__container"
-          >
+          <form className="login--form__container">
             <input
               type="email"
               name="email"
@@ -94,8 +101,10 @@ export default class Login extends Component {
             <br />
             <button
               className="input__button"
-              onClick={() => {
-                this.props.history.push("/dashboard");
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                this.sendData();
               }}
             >
               Ingresar

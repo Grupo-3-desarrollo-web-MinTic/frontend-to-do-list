@@ -11,7 +11,7 @@ export default class LogOut extends Component {
 
   closeSession() {
     console.log("Sesión cerrada");
-
+    localStorage.clear()
     this.props.history.push("/");
   }
 
