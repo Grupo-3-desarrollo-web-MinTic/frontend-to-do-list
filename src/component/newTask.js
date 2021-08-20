@@ -34,11 +34,19 @@ export default class NewTask extends Component {
         <form>
           <div>
             <label>Task title:</label>
-            <input type="text" name="name" className="setting--input__text" />
+            <input
+              type="text"
+              name="taskTitle"
+              className="setting--input__text"
+            />
           </div>
           <div>
             <label>Description:</label>
-            <input type="text" name="name" className="setting--input__text" />
+            <textarea
+              type="text"
+              name="description"
+              className="setting--input__textarea"
+            />
           </div>
           <br />
           <div>

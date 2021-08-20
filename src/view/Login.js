@@ -29,14 +29,16 @@ export default class Login extends Component {
   }
 
   sendData() {
-    this.props.history.push("/dashboard");
     api
       .post("test/login", {
         user: this.state.email,
         password: this.state.password,
       })
       .then((res) => {
-        localStorage.setItem("userToken", res);
+        return res.data
+      }).then((data) => {
+        localStorage.setItem("userToken", data.data[0]._id);
+        localStorage.setItem("userName", data.data[0].name);
       })
       .then(() => {
         this.props.history.push("/dashboard");

@@ -13,8 +13,14 @@ export default class History extends Component {
   }
 
   componentDidMount() {
-    Api.get("/test/historic")
+    Api.get("test/historic", {
+      headers: {
+        id: localStorage.getItem("userToken"),
+        "content-type": "text/json",
+      },
+    })
       .then((res) => {
+        console.log(res);
         this.setState({
           list: res.data.list,
         });
@@ -27,10 +33,18 @@ export default class History extends Component {
   render() {
     const tasks = [];
 
-    for (let task of this.state.list) {
+    try {
+      for (let task of this.state.list) {
+        tasks.push(
+          <li className="item" key={task}>
+            <i className="fas fa-tasks"></i> {task}
+          </li>
+        );
+      }
+    } catch (e) {
       tasks.push(
-        <li className="item" key={task}>
-          <i className="fas fa-tasks"></i> {task}
+        <li className="item">
+          <i class="fas fa-ghost"></i> You haven't completed task yet
         </li>
       );
     }

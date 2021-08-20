@@ -1,9 +1,10 @@
 @import "color.css";
 
+.setting--input__textarea,
 .setting--input__text {
   border-radius: 25px;
   margin: 0 auto;
-  padding: 0.5%;
+  padding: 1.2%;
   margin: 1.2%;
   width: 90%;
 }

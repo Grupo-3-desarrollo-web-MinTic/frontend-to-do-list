@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../assent/style/item.css";
-import Api from "../api/index";
+import api from "../api/index";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -14,8 +14,14 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    Api.get("test/list")
+    api.get("test/list", {
+      headers: {
+        id: localStorage.getItem("userToken"),
+        "content-type": "text/json",
+      },
+    })
       .then((res) => {
+        console.log(res);
         this.setState({
           name: res.data.user,
           list: res.data.list,
@@ -27,7 +33,8 @@ export default class Dashboard extends Component {
   }
 
   handleClick(task) {
-    Api.post("test/list", {
+    console.log(task);
+    api.post("test/list", {
       task: task,
     })
       .then((res) => {
@@ -40,19 +47,31 @@ export default class Dashboard extends Component {
 
   render() {
     const tasks = [];
-    const username = this.state.name;
+    const username = localStorage.getItem("userName");
 
-    for (let task of this.state.list) {
+    try {
+      for (let task of this.state.list) {
+        tasks.push(
+          <li
+            onClick={() => this.handleClick(task)}
+            className="item"
+            key={task}
+          >
+            <i className="fas fa-tasks"></i> {task}
+          </li>
+        );
+      }
+    } catch (e) {
       tasks.push(
-        <li onClick={() => this.handleClick(task)} className="item" key={task}>
-          <i className="fas fa-tasks"></i> {task}
+        <li className="item">
+          <i class="far fa-folder-open"></i> You don't have tasks {username}
         </li>
       );
     }
 
     return (
       <article className="dashboard">
-        <h2>@{username} list</h2>
+        <h2>@{username} dashboard list</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>
