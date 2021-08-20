@@ -7,16 +7,33 @@ export default class NewTask extends Component {
 
     // Setting up state
     this.state = {
-      list: [],
-      name: "",
+      title: "",
+      description: "",
     };
+
+    // Setting up functions
+    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeTitle = this.onChangeTitle.bind(this);
   }
 
-  handleClick(task, title, description) {
-    Api.post("test/createTask", {
-      task: task,
-      title: title,
-      description: description,
+  onChangeTitle(e) {
+    this.setState({ title: e.target.value });
+  }
+  onChangeDescription(e) {
+    this.setState({ description: e.target.value });
+  }  
+
+  handleClick(e) {
+    e.preventDefault();
+    console.log({
+      title: this.state.description,
+      description: this.state.description,
+      user: localStorage.getItem("userToken"),
+    });
+    Api.post("test/createtask", {
+      title: this.state.description,
+      description: this.state.description,
+      user: localStorage.getItem("userToken"),
     })
       .then((res) => {
         console.log(res);
@@ -38,6 +55,9 @@ export default class NewTask extends Component {
               type="text"
               name="taskTitle"
               className="setting--input__text"
+              onChange={(e) => {
+                this.setState({ title: e.target.value });
+              }}
             />
           </div>
           <div>
@@ -46,6 +66,9 @@ export default class NewTask extends Component {
               type="text"
               name="description"
               className="setting--input__textarea"
+              onChange={(e) => {
+                this.setState({ description: e.target.value });
+              }}
             />
           </div>
           <br />
@@ -54,6 +77,9 @@ export default class NewTask extends Component {
               type="submit"
               value="Add task"
               className="setting--input__btn"
+              onClick={(e) => {
+                this.handleClick(e);
+              }}
             />
           </div>
         </form>

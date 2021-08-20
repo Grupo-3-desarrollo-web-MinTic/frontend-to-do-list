@@ -14,18 +14,31 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    api.get("test/list", {
-      headers: {
-        id: localStorage.getItem("userToken"),
-        "content-type": "text/json",
-      },
-    })
+    api
+      .get("test/list", {
+        headers: {
+          id: localStorage.getItem("userToken"),
+          "content-type": "text/json",
+        },
+      })
       .then((res) => {
-        console.log(res);
+        return res.data;
+      })
+      .then((data) => {
         this.setState({
-          name: res.data.user,
-          list: res.data.list,
+          name: data.user,
         });
+        for (let task in data.data) {
+          this.setState({
+            list: [
+              {
+                id: data.data[task]._id,
+                title: data.data[task].title,
+                description: data.data[task].description,
+              },
+            ],
+          });
+        }
       })
       .catch((err) => {
         console.log("Algo salio mal, el error es: " + err);
@@ -33,10 +46,11 @@ export default class Dashboard extends Component {
   }
 
   handleClick(task) {
-    console.log(task);
-    api.post("test/list", {
-      task: task,
-    })
+    console.log(task.id);
+    api
+      .post("test/deletetask", {
+        task: task.id,
+      })
       .then((res) => {
         console.log(res);
       })
@@ -50,21 +64,22 @@ export default class Dashboard extends Component {
     const username = localStorage.getItem("userName");
 
     try {
-      for (let task of this.state.list) {
+      for (let task = 0; task < this.state.list.length; task++) {
         tasks.push(
           <li
-            onClick={() => this.handleClick(task)}
+            onClick={() => this.handleClick(this.state.list[task])}
             className="item"
-            key={task}
+            key={this.state.list[task].id}
           >
-            <i className="fas fa-tasks"></i> {task}
+            <i className="fas fa-tasks"></i> {this.state.list[task].title}
+            <p>{this.state.list[task].description}</p>
           </li>
         );
       }
     } catch (e) {
       tasks.push(
         <li className="item">
-          <i class="far fa-folder-open"></i> You don't have tasks {username}
+          <i className="far fa-folder-open"></i> You don't have tasks {username}
         </li>
       );
     }

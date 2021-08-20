@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../assent/style/item.css";
-import Api from "../api/index";
+import api from "../api/index";
 
 export default class All extends Component {
   constructor(props) {
@@ -14,12 +14,31 @@ export default class All extends Component {
   }
 
   componentDidMount() {
-    Api.get("test/list")
+    api
+      .get("test/list", {
+        headers: {
+          id: localStorage.getItem("userToken"),
+          "content-type": "text/json",
+        },
+      })
       .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
         this.setState({
-          name: res.data.user,
-          list: res.data.list,
+          name: data.user,
         });
+        for (let task in data.data) {
+          this.setState({
+            list: [
+              {
+                id: data.data[task]._id,
+                title: data.data[task].title,
+                description: data.data[task].description,
+              },
+            ],
+          });
+        }
       })
       .catch((err) => {
         console.log("Algo salio mal, el error es: " + err);
@@ -27,9 +46,11 @@ export default class All extends Component {
   }
 
   handleClick(task) {
-    Api.post("test/list", {
-      task: task,
-    })
+    console.log(task.id);
+    api
+      .post("test/deletetask", {
+        task: task.id,
+      })
       .then((res) => {
         console.log(res);
       })
@@ -40,19 +61,32 @@ export default class All extends Component {
 
   render() {
     const tasks = [];
-    const username = this.state.name;
+    const username = localStorage.getItem("userName");
 
-    for (let task of this.state.list) {
+    try {
+      for (let task = 0; task < this.state.list.length; task++) {
+        tasks.push(
+          <li
+            onClick={() => this.handleClick(this.state.list[task])}
+            className="item"
+            key={this.state.list[task].id}
+          >
+            <i className="fas fa-tasks"></i> {this.state.list[task].title}
+            <p>{this.state.list[task].description}</p>
+          </li>
+        );
+      }
+    } catch (e) {
       tasks.push(
-        <li onClick={() => this.handleClick(task)} className="item" key={task}>
-          <i className="fas fa-tasks"></i> {task}
+        <li className="item">
+          <i className="far fa-folder-open"></i> You don't have tasks {username}
         </li>
       );
     }
 
     return (
       <article className="dashboard">
-        <h2>@{username} all list</h2>
+        <h2>All task for @{username} list</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>

@@ -3,7 +3,6 @@ import "../assent/style/login.css";
 
 import React, { Component } from "react";
 import api from "../api/index";
-import swl from "sweetalert";
 
 //import { BrowserRouter as Router } from "react-router-dom";
 
@@ -15,39 +14,49 @@ export default class Login extends Component {
     this.state = {
       password: "",
       email: "",
+      name: "",
     };
 
     // Setting up functions
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
   }
 
-  onChangeEmail(e) {
-    this.setState({ email: e.target.value });
-  }
   onChangePassword(e) {
     this.setState({ password: e.target.value });
   }
+  onChangeEmail(e) {
+    this.setState({ email: e.target.value });
+  }
+  onChangeName(e) {
+    this.setState({ name: e.target.value });
+  }
 
-  sendData() {
+  logData() {
+    console.log({
+      name: this.state.name,
+      password: this.state.password,
+      email: this.state.email,
+    });
     api
-      .post("test/login", {
-        user: this.state.email,
+      .post("test/createuser", {
+        name: this.state.name,
         password: this.state.password,
+        email: this.state.email,
       })
       .then((res) => {
-        localStorage.setItem("userToken", res);
+        console.log(res);
       })
       .then(() => {
-        swl("Exitoso", "¿Como te va? Es bueno verte de nuevo", "success");
-        this.props.history.push("/dashboard");
+        this.props.history.push("/");
       })
       .catch((err) => {
-        swl("Error", err, "error");
         console.log("Ha ocurrido un error: " + err);
       });
 
     this.setState({
+      username: "",
       password: "",
       email: "",
     });
@@ -61,11 +70,23 @@ export default class Login extends Component {
             <input
               type="email"
               name="email"
-              placeholder="USERNAME"
+              placeholder="E-MAIL"
               className="input__text"
               defaultValue={this.state.email}
               onChange={(e) => {
                 this.setState({ email: e.target.value });
+              }}
+            />
+            <br />
+            <br />
+            <input
+              type="name"
+              name="name"
+              placeholder="USERNAME"
+              className="input__text"
+              defaultValue={this.state.name}
+              onChange={(e) => {
+                this.setState({ name: e.target.value });
               }}
             />
             <br />
@@ -82,19 +103,13 @@ export default class Login extends Component {
             />
             <br />
             <br />
-            <br />
-            <div>
-              <input type="checkbox" name="remember" className="input__check" />
-              <label for="remember"> Remember me</label>
-            </div>
-
             <div>
               <p
                 onClick={() => {
-                  this.props.history.push("/sign-up");
+                  this.props.history.push("/");
                 }}
               >
-                Forgot your password?
+                Login
               </p>
             </div>
             <br />
@@ -104,10 +119,10 @@ export default class Login extends Component {
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                this.sendData();
+                this.logData();
               }}
             >
-              Ingresar
+              Registrarse
             </button>
           </form>
         </article>
