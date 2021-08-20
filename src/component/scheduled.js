@@ -65,16 +65,18 @@ export default class Scheduled extends Component {
 
     try {
       for (let task = 0; task < this.state.list.length; task++) {
-        tasks.push(
-          <li
-            onClick={() => this.handleClick(this.state.list[task])}
-            className="item"
-            key={this.state.list[task].id}
-          >
-            <i className="fas fa-tasks"></i> {this.state.list[task].title}
-            <p>{this.state.list[task].description}</p>
-          </li>
-        );
+        if (this.state.list[task].state === "created") {
+          tasks.push(
+            <li
+              onClick={() => this.handleClick(this.state.list[task])}
+              className="item"
+              key={this.state.list[task].id}
+            >
+              <i className="fas fa-tasks"></i> {this.state.list[task].title}
+              <p>{this.state.list[task].description}</p>
+            </li>
+          );
+        }
       }
     } catch (e) {
       tasks.push(
@@ -91,4 +93,5 @@ export default class Scheduled extends Component {
         <ul>{tasks}</ul>
       </article>
     );
-  }}
+  }
+}

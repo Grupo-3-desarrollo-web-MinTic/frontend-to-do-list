@@ -34,6 +34,7 @@ export default class History extends Component {
               {
                 id: data.data[task]._id,
                 title: data.data[task].title,
+                state: data.data[task].state,
                 description: data.data[task].description,
               },
             ],
@@ -51,12 +52,14 @@ export default class History extends Component {
 
     try {
       for (let task = 0; task < this.state.list.length; task++) {
-        tasks.push(
-          <li key={this.state.list[task].id} className="item">
-            <i className="fas fa-tasks"></i> {this.state.list[task].title}
-            <p>{this.state.list[task].description}</p>
-          </li>
-        );
+        if (this.state.list[task].state === "deleted") {
+          tasks.push(
+            <li key={this.state.list[task].id} className="item">
+              <i className="fas fa-tasks"></i> {this.state.list[task].title}
+              <p>{this.state.list[task].description}</p>
+            </li>
+          );
+        }
       }
     } catch (e) {
       tasks.push(
@@ -68,7 +71,7 @@ export default class History extends Component {
 
     return (
       <article className="dashboard">
-        <h2>@{username} scheduled tasks</h2>
+        <h2>@{username} historic tasks</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>

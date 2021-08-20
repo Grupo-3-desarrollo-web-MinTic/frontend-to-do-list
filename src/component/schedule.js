@@ -50,12 +50,14 @@ export default class Schedule extends Component {
 
     try {
       for (let task = 0; task < this.state.list.length; task++) {
-        tasks.push(
-          <li key={this.state.list[task].id} className="item">
-            <i className="fas fa-tasks"></i> {this.state.list[task].title}
-            <p>{this.state.list[task].description}</p>
-          </li>
-        );
+        if (this.state.list[task].state === "created") {
+          tasks.push(
+            <li key={this.state.list[task].id} className="item">
+              <i className="fas fa-tasks"></i> {this.state.list[task].title}
+              <p>{this.state.list[task].description}</p>
+            </li>
+          );
+        }
       }
     } catch (e) {
       tasks.push(

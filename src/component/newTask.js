@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Api from "../api/index";
+import api from "../api/index";
 
 export default class NewTask extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class NewTask extends Component {
       description: this.state.description,
       user: localStorage.getItem("userToken"),
     });
-    Api.post("test/createtask", {
+    api.post("test/createtask", {
       title: this.state.description,
       description: this.state.description,
       user: localStorage.getItem("userToken"),

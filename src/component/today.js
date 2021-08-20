@@ -65,16 +65,18 @@ export default class Today extends Component {
 
     try {
       for (let task = 0; task < this.state.list.length; task++) {
-        tasks.push(
-          <li
-            onClick={() => this.handleClick(this.state.list[task])}
-            className="item"
-            key={this.state.list[task].id}
-          >
-            <i className="fas fa-tasks"></i> {this.state.list[task].title}
-            <p>{this.state.list[task].description}</p>
-          </li>
-        );
+        if (this.state.list[task].state === "updated") {
+          tasks.push(
+            <li
+              onClick={() => this.handleClick(this.state.list[task])}
+              className="item"
+              key={this.state.list[task].id}
+            >
+              <i className="fas fa-tasks"></i> {this.state.list[task].title}
+              <p>{this.state.list[task].description}</p>
+            </li>
+          );
+        }
       }
     } catch (e) {
       tasks.push(

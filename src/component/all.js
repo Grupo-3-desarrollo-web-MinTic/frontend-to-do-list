@@ -34,6 +34,7 @@ export default class All extends Component {
               {
                 id: data.data[task]._id,
                 title: data.data[task].title,
+                state: data.data[task].state,
                 description: data.data[task].description,
               },
             ],
@@ -46,7 +47,6 @@ export default class All extends Component {
   }
 
   handleClick(task) {
-    console.log(task.id);
     api
       .post("test/deletetask", {
         task: task.id,
