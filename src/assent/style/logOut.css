@@ -1,0 +1,19 @@
+@import "color.css";
+
+.closeSession {
+  text-align: center;
+  padding: 5%;
+}
+
+.closeSession--label {
+  background-color: var(--main);
+  border-radius: 25px;
+  border-style: none;
+  font-size: 18px;
+  color: white;
+  padding: 2%;
+}
+
+.closeSession--label:hover {
+  background-color: var(--second);
+}

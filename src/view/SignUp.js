@@ -3,6 +3,7 @@ import "../assent/style/login.css";
 
 import React, { Component } from "react";
 import api from "../api/index";
+import swl from "sweetalert";
 
 //import { BrowserRouter as Router } from "react-router-dom";
 
@@ -35,15 +36,14 @@ export default class Login extends Component {
         password: this.state.password,
       })
       .then((res) => {
-        return res.data
-      }).then((data) => {
-        localStorage.setItem("userToken", data.data[0]._id);
-        localStorage.setItem("userName", data.data[0].name);
+        localStorage.setItem("userToken", res);
       })
       .then(() => {
+        swl("Exitoso", "¿Como te va? Es bueno verte de nuevo", "success");
         this.props.history.push("/dashboard");
       })
       .catch((err) => {
+        swl("Error", err, "error");
         console.log("Ha ocurrido un error: " + err);
       });
 

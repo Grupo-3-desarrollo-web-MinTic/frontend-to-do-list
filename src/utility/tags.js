@@ -18,14 +18,14 @@ export default class Tags extends Component {
         <li className="tags--button">
           <Link to={"/scheduled"}>
             <button className="tags--button__tag">
-              <i className="fas fa-book-open"></i> All
+              <i className="fas fa-stopwatch"></i> Scheduled
             </button>
           </Link>
         </li>
         <li className="tags--button">
           <Link to={"/all"}>
             <button className="tags--button__tag">
-              <i className="fas fa-stopwatch"></i> Scheduled
+              <i className="fas fa-book-open"></i> All
             </button>
           </Link>
         </li>

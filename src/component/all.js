@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import api from "../api/index";
+import "../assent/style/item.css";
+import Api from "../api/index";
 
-export default class Schedule extends Component {
+export default class All extends Component {
   constructor(props) {
     super(props);
 
@@ -13,14 +14,8 @@ export default class Schedule extends Component {
   }
 
   componentDidMount() {
-    api.get("test/list", {
-      headers: {
-        id: localStorage.getItem("userToken"),
-        "content-type": "text/json",
-      },
-    })
+    Api.get("test/list")
       .then((res) => {
-        console.log(res);
         this.setState({
           name: res.data.user,
           list: res.data.list,
@@ -32,8 +27,7 @@ export default class Schedule extends Component {
   }
 
   handleClick(task) {
-    console.log(task);
-    api.post("test/list", {
+    Api.post("test/list", {
       task: task,
     })
       .then((res) => {
@@ -46,31 +40,19 @@ export default class Schedule extends Component {
 
   render() {
     const tasks = [];
-    const username = localStorage.getItem("userName");
+    const username = this.state.name;
 
-    try {
-      for (let task of this.state.list) {
-        tasks.push(
-          <li
-            onClick={() => this.handleClick(task)}
-            className="item"
-            key={task}
-          >
-            <i className="fas fa-tasks"></i> {task}
-          </li>
-        );
-      }
-    } catch (e) {
+    for (let task of this.state.list) {
       tasks.push(
-        <li className="item">
-          <i class="far fa-folder-open"></i> You don't have tasks {username}
+        <li onClick={() => this.handleClick(task)} className="item" key={task}>
+          <i className="fas fa-tasks"></i> {task}
         </li>
       );
     }
 
     return (
       <article className="dashboard">
-        <h2>@{username} dashboard list</h2>
+        <h2>@{username} all list</h2>
         <hr />
         <ul>{tasks}</ul>
       </article>
